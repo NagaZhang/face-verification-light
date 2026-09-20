@@ -1,0 +1,18 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+
+# Models (large ONNX weights, downloaded separately — see README)
+models/*.onnx
+
+# Runtime data (user-specific registrations)
+*.npy
+registration.json
+data/
+
+# OS
+.DS_Store
+Thumbs.db
