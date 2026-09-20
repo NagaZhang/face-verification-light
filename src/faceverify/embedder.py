@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import cv2
 import numpy as np
 import onnxruntime as ort
@@ -5,8 +7,10 @@ import onnxruntime as ort
 
 class FaceEmbedder:
     def __init__(self, model_path: str):
+        # Read via Unicode-safe Python I/O and pass bytes so a non-ASCII path
+        # (e.g. a Chinese Windows user name) can't break model loading.
         self.session = ort.InferenceSession(
-            model_path, providers=["CPUExecutionProvider"]
+            Path(model_path).read_bytes(), providers=["CPUExecutionProvider"]
         )
         self.input_name = self.session.get_inputs()[0].name
         self.output_name = self.session.get_outputs()[0].name

@@ -3,6 +3,8 @@ from dataclasses import dataclass
 import cv2
 import numpy as np
 
+from faceverify.modelio import opencv_safe_path
+
 
 @dataclass
 class Face:
@@ -14,7 +16,7 @@ class Face:
 class FaceDetector:
     def __init__(self, model_path: str, score_threshold: float = 0.6):
         self.detector = cv2.FaceDetectorYN.create(
-            model_path, "", (320, 320), score_threshold
+            opencv_safe_path(model_path), "", (320, 320), score_threshold
         )
 
     def detect(self, image_bgr: np.ndarray) -> list[Face]:
