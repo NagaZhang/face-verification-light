@@ -4,20 +4,19 @@ python scripts/smoke_test.py reg1.jpg reg2.jpg test.jpg
 import sys
 from pathlib import Path
 
-import cv2
-
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
 from faceverify.align import align_face
 from faceverify.detector import FaceDetector
 from faceverify.embedder import FaceEmbedder
+from faceverify.imageio import imread_unicode
 from faceverify.matcher import mean_embedding, verify
 
 MODELS = Path(__file__).resolve().parent.parent / "models"
 
 
 def embed_from_path(detector, embedder, path):
-    img = cv2.imread(str(path))
+    img = imread_unicode(str(path))
     if img is None:
         raise RuntimeError(f"cannot read {path}")
     face = detector.detect_largest(img)
