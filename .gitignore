@@ -8,6 +8,11 @@ venv/
 # Models (large ONNX weights, downloaded separately — see README)
 models/*.onnx
 
+# PyInstaller artifacts
+build/
+dist/
+*.spec
+
 # Runtime data (user-specific registrations)
 *.npy
 registration.json

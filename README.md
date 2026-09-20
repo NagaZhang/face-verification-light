@@ -50,6 +50,19 @@ python run.py
 python -m pytest
 ```
 
+## 打包成 exe（可选，方便发给朋友）
+
+让朋友不用装 Python 也能用：
+
+```bash
+pip install pyinstaller
+python -m PyInstaller --onefile --windowed --name FaceVerify \
+  --paths src --add-data "models;models" \
+  --collect-all onnxruntime --collect-all cv2 --noconfirm run.py
+```
+
+产物在 `dist/FaceVerify.exe`（约 240MB，已含模型），朋友双击即可运行。
+
 ## 说明
 
 - 识别率受照片角度、光照、遮挡、年龄变化影响；注册时多选不同角度/光照的照片可提升准确率。

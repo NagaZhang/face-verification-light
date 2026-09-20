@@ -1,3 +1,4 @@
+import sys
 from pathlib import Path
 
 from faceverify.detector import FaceDetector
@@ -5,8 +6,15 @@ from faceverify.embedder import FaceEmbedder
 from faceverify.gui import FaceVerifyApp
 from faceverify.store import RegistrationStore
 
-PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-MODELS_DIR = PROJECT_ROOT / "models"
+
+def _models_dir() -> Path:
+    if getattr(sys, "frozen", False):
+        # PyInstaller onefile extracts bundled data to sys._MEIPASS.
+        return Path(sys._MEIPASS) / "models"
+    return Path(__file__).resolve().parent.parent.parent / "models"
+
+
+MODELS_DIR = _models_dir()
 DATA_DIR = Path.home() / ".face-verify"
 
 
